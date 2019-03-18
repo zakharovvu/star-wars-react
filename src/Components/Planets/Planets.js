@@ -1,44 +1,45 @@
 import React from "react";
-import { getAll } from "../../Api/Api"
-import Datatable from "../Datatable";
+import { getAll } from "../../Api/Api";
+import Datatable from "../Datatable"
 
 const config = {
-    title: {
+    name: {
       title: "name",
       isSortable: true,
       isSearchable: true
     },
-    director: {
-      title: "director",
+    rotation_period: {
+      title: "rotation_period",
       isSortable: true
     },
-    created: {
-      created: "birth year"
+    diameter: {
+      title: "diameter"
     
   }
 }
 
-class FilmsPage extends React.Component {
+class Planets extends React.Component {
     state = {
         data: [],
         bySort: true,
-        fieldSort: 'title'
+        fieldSort: 'name'
     }
 
     componentDidMount() {
         const url = this.props.location.pathname.toLowerCase();
         getAll(url).then(data => {
-            this.setState({ data });
+            this.setState({ data: data });
           });
       }
-      
+
     render() {
         if (this.state.data.length < 1) return (<div>Load...</div>);
+
         return (
-        <Datatable 
+             <Datatable 
                 config={config}
                 data={this.state.data.results}
-                onLink={'title'}
+                onLink={'name'}
                 bySort={this.state.bySort}
                 directionSort={this.directionSort}
                 fieldSort={this.state.fieldSort}
@@ -47,9 +48,8 @@ class FilmsPage extends React.Component {
     }
     directionSort = (name) => {
         this.setState({ bySort: !this.state.bySort, fieldSort: name })
-        console.log(name)
+        
     }
-
 }
 
-export default FilmsPage
+export default Planets

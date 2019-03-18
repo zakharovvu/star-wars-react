@@ -1,5 +1,6 @@
 import React from "react";
 import { getAll } from "../../Api/Api"
+import Tabledetails from "../Tabledetails"
 
 const config = {
     title: {
@@ -36,17 +37,10 @@ class FilmPage extends React.Component {
         if (this.state.data.length < 1) return (<div>Load...</div>);
         
         return (
-        <table>
-            <tbody>
-            {Object.keys(config).map((el, i) => (
-                    <tr key={el}>
-                        <td className="Title">{el}</td>
-                        <td>{this.state.data[el]}</td>
-                    </tr>
-                ))}
-              
-            </tbody>
-        </table>
+        <Tabledetails 
+                config={config}
+                data={this.state.data}
+            />
         )
     }
 }

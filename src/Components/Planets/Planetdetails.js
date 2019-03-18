@@ -4,42 +4,23 @@ import Tabledetails from "../Tabledetails"
 
 const config = {
     name: {
-      title: "Name",
+      title: "name",
       isSortable: true,
       isSearchable: true
     },
-    height: {
-      title: "Height",
+    rotation_period: {
+      title: "rotation_period",
       isSortable: true
     },
-    mass: {
-      title: "Mass",
-      isSortable: false,
+    diameter: {
+      title: "diameter"
     },
-    hair_color: {
-        title: "Hair color",
-        isSortable: false,
-    },
-    skin_color: {
-        title: "Skin color",
-        isSortable: false,
-        isSearchable: false
-      },
-      eye_color: {
-        title: "Eye color",
-        isSortable: false
-      },
-      birth_year: {
-        title: "Birth year",
-        isSortable: false,
-      },
-      gender: {
-          title: "Gender",
-          isSortable: false,
-      }
+    climate: {
+        title: "climate"
+    }
 }
 
-class PersonPage extends React.Component {
+class Planetdetails extends React.Component {
     state = {
         data: [],
     }
@@ -63,8 +44,6 @@ class PersonPage extends React.Component {
       
         )
     }
-
-   
 }
 
-export default PersonPage
+export default Planetdetails

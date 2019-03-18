@@ -1,2 +1,55 @@
-
-
+.Menu {
+  background: rgb(126, 179, 248);
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+  height: 500px;
+  font-size: 20px;
+}
+.Content {
+  display: grid;
+  grid-template-columns: 25% auto;
+}
+td {
+  border: 1px solid rgb(73, 117, 214);
+  padding: 5px;
+}
+table {
+  border-collapse: collapse;
+  margin-left: 20px;
+}
+.Title {
+  font-weight: bold;
+}
+a {
+  text-decoration: none;
+  color: rgb(32, 8, 245);
+}
+a:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+.Activ {
+  font-weight: 900;
+  color: rgb(8, 8, 8);
+}
+.Navlink {
+  padding: 5px;
+}
+.Sort {
+  color: red;
+}
+.Sort:hover {
+  background: rgb(212, 199, 199);
+  cursor: pointer;
+}
+.Sort::after {
+  content: "↓";
+}
+.Buttonpage {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.Activbutton {
+  background: rgb(13, 209, 6);
+}

@@ -1,68 +1,88 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import { getAll } from "../../Api/Api"
+import { getAll } from "../../Api/Api";
+import Datatable from "../Datatable"
+import Pagination from "../Pagination";
 
 const config = {
     name: {
-      title: "name",
+      title: "Name",
       isSortable: true,
       isSearchable: true
     },
     height: {
-      title: "height",
+      title: "Height",
       isSortable: true
     },
-    birth_year: {
-      title: "birth year"
-    
-  }
+    mass: {
+      title: "Mass",
+      isSortable: true,
+      isSearchable: true
+    },
+    gender: {
+      title: "Gender",
+      isSortable: false,
+      isSearchable: false
+    },
+    hair_color: {
+      title: "Hair color",
+      isSortable: false,
+      isSearchable: false
+    },
 }
 
 class PeoplePage extends React.Component {
     state = {
         data: [],
-        da: []
+        bySort: true,
+        fieldSort: 'name',
+        currentPage: 1,
+        url: this.props.location.pathname,
     }
 
     componentDidMount() {
-        const url = this.props.location.pathname.toLowerCase();
+      const url1 = this.props.location.pathname
+      const url2 = this.props.location.search
+
+        const url = url1 + url2;
         getAll(url).then(data => {
             this.setState({ data: data });
           });
       }
+     
+      get = (page) => {  
+        const url = `${this.props.location.pathname.toLowerCase()}/?page=${page}`;
+        getAll(url).then(data => {
+            this.setState({ data: data, currentPage: page });
+          });
+      }
 
-    
-      
     render() {
         if (this.state.data.length < 1) return (<div>Load...</div>);
-
-       
+        
         return (
-        <div>            
-        <table>
-            <tbody>
-                <tr >
-                    {Object.keys(config).map(el => ( <th key={el}>{el}</th> )) }
-                </tr>
-                {this.state.data.results.map((el) => {
-                    return (
-                        <tr key={el.name}>
-                            {Object.keys(config).map(el2 => (
-                                el2 === 'name' 
-                                ? <td key={el2}><Link to={el.url.substring(21)}> { el[el2] } </Link> </td>
-                                : <td key={el2}>{ el[el2] }</td>
-                            ))}
-                        </tr>
-                        )
-                    })
-                } 
-            </tbody>
-        </table>
-        </div>
+            <div>
+              <Pagination 
+                currentPage={this.state.currentPage}
+                data={this.state.data} 
+                setPage={this.get}
+                location={this.props.location.pathname.toLowerCase()}
+              />
+             
+             <Datatable 
+                config={config}
+                data={this.state.data.results}
+                onLink={'name'}
+                bySort={this.state.bySort}
+                directionSort={this.directionSort}
+                fieldSort={this.state.fieldSort}
+              /> 
+            </div>
         )
     }
 
-
+    directionSort = (name) => {
+        this.setState({ bySort: !this.state.bySort, fieldSort: name })
+    }
 }
 
 export default PeoplePage
